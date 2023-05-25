@@ -1,13 +1,16 @@
-# task 1
+# task 2
 
 import requests
 from bs4 import BeautifulSoup
 
-query = requests.get("https://www.example.com")
+try:
+    responce = requests.get("https://uk.wikipedia.org/wiki/Головна_сторінка")
 
-if query.status_code == 200:
-    soup = BeautifulSoup(query.content, "html.parser")
-    title = soup.find("title").text
-    print(title)
-else:
-    print("Немаэ пiдключення ", query.status_code)
+    if responce.status_code == 200:
+        soup = BeautifulSoup(responce.content, "html.parser")
+        img = soup.find_all("img")
+
+        for image in img:
+            print("https://" + image["src"])
+except:
+    print("Немаэ пiдключення")
