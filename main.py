@@ -1,4 +1,4 @@
-# task 3
+# task 4
 
 import requests
 from bs4 import BeautifulSoup
@@ -8,11 +8,12 @@ try:
 
     if responce.status_code == 200:
         soup = BeautifulSoup(responce.text, "html.parser")
-        soup_list = soup.find_all("a")
 
-        for image in soup_list:
-            href = f"{image.get('href')}"
-            if href.startswith("https://"):
-                print(href)
+        for script in soup.find_all(["style", "script"]):
+            script.extract()
+        text = " ".join(soup.stripped_strings)
+        words = len(text.split())
+        print(words)
+
 except:
     print("Немаэ пiдключення")
