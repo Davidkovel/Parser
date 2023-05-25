@@ -1,16 +1,18 @@
-# task 2
+# task 3
 
 import requests
 from bs4 import BeautifulSoup
 
 try:
-    responce = requests.get("https://uk.wikipedia.org/wiki/Головна_сторінка")
+    responce = requests.get("https://www.example.com")
 
     if responce.status_code == 200:
-        soup = BeautifulSoup(responce.content, "html.parser")
-        img = soup.find_all("img")
+        soup = BeautifulSoup(responce.text, "html.parser")
+        soup_list = soup.find_all("a")
 
-        for image in img:
-            print("https://" + image["src"])
+        for image in soup_list:
+            href = f"{image.get('href')}"
+            if href.startswith("https://"):
+                print(href)
 except:
     print("Немаэ пiдключення")
